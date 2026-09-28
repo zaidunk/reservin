@@ -46,7 +46,6 @@ export function ReservationDetailsForm({
           id="customer-name"
           label="Reservation name"
           autoComplete="name"
-          autoFocus
           value={value.customerName}
           error={errors.customerName}
           onChange={(event) => setValue({ ...value, customerName: event.target.value })}
@@ -79,7 +78,7 @@ export function ReservationDetailsForm({
         />
       </div>
       <div className="form-actions">
-        <Button type="button" variant="secondary" onClick={onBack}>
+        <Button type="button" variant="secondary" disabled={isLoading} onClick={onBack}>
           Change table
         </Button>
         <Button type="submit" size="large" isLoading={isLoading}>

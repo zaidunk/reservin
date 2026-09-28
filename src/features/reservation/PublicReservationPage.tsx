@@ -10,6 +10,7 @@ import {
   getAvailableTables,
 } from "../../lib/api/public-reservations";
 import { toAppError } from "../../lib/errors/app-error";
+import { getTodayDate } from "../../lib/date/restaurant-time";
 import {
   toReservationPeriod,
   type ReservationDetailsInput,
@@ -22,8 +23,8 @@ import { ReservationConfirmation } from "./components/ReservationConfirmation";
 import { ReservationDetailsForm } from "./components/ReservationDetailsForm";
 
 function nextReservationDate() {
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
+  const [year, month, day] = getTodayDate(appConfig.restaurantTimeZone).split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day + 1));
   return date.toISOString().slice(0, 10);
 }
 
@@ -110,7 +111,7 @@ export function PublicReservationPage() {
         </ol>
       </section>
 
-      <section className="booking-surface" aria-labelledby="booking-title">
+      <section className="booking-surface" id="reserve" aria-labelledby="booking-title">
         <div className="section-heading">
           <div>
             <span className="eyebrow">Start here</span>

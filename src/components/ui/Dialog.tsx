@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useEffect, useRef, type PropsWithChildren } from "react";
+import { useEffect, useId, useRef, type PropsWithChildren } from "react";
 
 type DialogProps = PropsWithChildren<{
   open: boolean;
@@ -10,6 +10,8 @@ type DialogProps = PropsWithChildren<{
 
 export function Dialog({ open, title, description, onClose, children }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  const titleId = useId();
+  const descriptionId = useId();
 
   useEffect(() => {
     const element = ref.current;
@@ -22,8 +24,8 @@ export function Dialog({ open, title, description, onClose, children }: DialogPr
     <dialog
       className="dialog"
       ref={ref}
-      aria-labelledby="dialog-title"
-      aria-describedby={description ? "dialog-description" : undefined}
+      aria-labelledby={titleId}
+      aria-describedby={description ? descriptionId : undefined}
       onCancel={(event) => {
         event.preventDefault();
         onClose();
@@ -35,8 +37,8 @@ export function Dialog({ open, title, description, onClose, children }: DialogPr
       <div className="dialog__surface">
         <header className="dialog__header">
           <div>
-            <h2 id="dialog-title">{title}</h2>
-            {description ? <p id="dialog-description">{description}</p> : null}
+            <h2 id={titleId}>{title}</h2>
+            {description ? <p id={descriptionId}>{description}</p> : null}
           </div>
           <button className="icon-button" type="button" aria-label="Close" onClick={onClose}>
             <X size={19} aria-hidden="true" />

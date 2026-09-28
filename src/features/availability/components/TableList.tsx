@@ -27,36 +27,36 @@ export function TableList({
       {tables.map((table) => {
         const isSelected = table.id === selectedId;
         return (
-          <button
-            key={table.id}
-            className={`table-card ${isSelected ? "table-card--selected" : ""}`}
-            type="button"
-            role="listitem"
-            aria-pressed={isSelected}
-            onClick={() => onSelect(table)}
-          >
-            <div className="table-card__heading">
-              <div>
-                <span className="eyebrow">{table.code}</span>
-                <h3>{table.name}</h3>
+          <div key={table.id} role="listitem">
+            <button
+              className={`table-card ${isSelected ? "table-card--selected" : ""}`}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => onSelect(table)}
+            >
+              <div className="table-card__heading">
+                <div>
+                  <span className="eyebrow">{table.code}</span>
+                  <h3>{table.name}</h3>
+                </div>
+                {isSelected ? (
+                  <span className="table-card__check" aria-label="Selected">
+                    <Check size={16} aria-hidden="true" />
+                  </span>
+                ) : (
+                  <Badge tone="success">Available</Badge>
+                )}
               </div>
-              {isSelected ? (
-                <span className="table-card__check" aria-label="Selected">
-                  <Check size={16} aria-hidden="true" />
+              <div className="table-card__meta">
+                <span>
+                  <Users size={16} aria-hidden="true" /> Up to {table.capacity} guests
                 </span>
-              ) : (
-                <Badge tone="success">Available</Badge>
-              )}
-            </div>
-            <div className="table-card__meta">
-              <span>
-                <Users size={16} aria-hidden="true" /> Up to {table.capacity} guests
-              </span>
-              <span>
-                <MapPin size={16} aria-hidden="true" /> {table.area || "Main dining room"}
-              </span>
-            </div>
-          </button>
+                <span>
+                  <MapPin size={16} aria-hidden="true" /> {table.area || "Main dining room"}
+                </span>
+              </div>
+            </button>
+          </div>
         );
       })}
     </div>

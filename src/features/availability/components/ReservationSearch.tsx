@@ -3,6 +3,8 @@ import { useState, type FormEvent } from "react";
 
 import { Button } from "../../../components/ui/Button";
 import { InputField, SelectField } from "../../../components/ui/Field";
+import { appConfig } from "../../../app/config/env";
+import { getTodayDate } from "../../../lib/date/restaurant-time";
 import {
   reservationSearchSchema,
   type ReservationSearchInput,
@@ -45,7 +47,7 @@ export function ReservationSearch({
           id="reservation-date"
           label="Date"
           type="date"
-          min={new Date().toISOString().slice(0, 10)}
+          min={getTodayDate(appConfig.restaurantTimeZone)}
           value={value.date}
           error={errors.date}
           onChange={(event) => setValue({ ...value, date: event.target.value })}

@@ -16,8 +16,41 @@ export const tableSchema = z.object({
     .nullable(),
 });
 
+function isIanaTimeZone(value: string) {
+  try {
+    new Intl.DateTimeFormat("en", { timeZone: value }).format();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export const restaurantSettingsSchema = z.object({
   name: z.string().trim().min(1, "Enter the restaurant name."),
-  timezone: z.string().trim().min(1, "Enter an IANA timezone."),
+  timezone: z
+    .string()
+    .trim()
+    .min(1, "Enter an IANA timezone.")
+    .refine(isIanaTimeZone, "Enter a valid IANA timezone."),
   reservationEnabled: z.boolean(),
 });
+
+const managementTimePattern = /^([01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?$/;
+
+export const openingHoursSchema = z
+  .object({
+    dayOfWeek: z.number().int().min(0).max(6),
+    openTime: z.string().regex(managementTimePattern).nullable(),
+    closeTime: z.string().regex(managementTimePattern).nullable(),
+    isClosed: z.boolean(),
+  })
+  .superRefine((value, context) => {
+    if (value.isClosed) return;
+    if (!value.openTime || !value.closeTime || value.openTime >= value.closeTime) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["closeTime"],
+        message: "Closing time must be later than opening time.",
+      });
+    }
+  });

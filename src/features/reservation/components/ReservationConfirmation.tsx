@@ -1,6 +1,7 @@
 import { CalendarDays, Check, Clock3, Hash, Users } from "lucide-react";
 
 import { Button } from "../../../components/ui/Button";
+import { appConfig } from "../../../app/config/env";
 import type { AvailableTable, ReservationResult } from "../../../types/domain";
 
 export function ReservationConfirmation({
@@ -22,13 +23,13 @@ export function ReservationConfirmation({
     weekday: "long",
     day: "numeric",
     month: "long",
-    timeZone: "Asia/Jakarta",
+    timeZone: appConfig.restaurantTimeZone,
   });
   const timeFormatter = new Intl.DateTimeFormat("en", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "Asia/Jakarta",
+    timeZone: appConfig.restaurantTimeZone,
   });
 
   return (
