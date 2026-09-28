@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "project": {
+    "name": "reservin-backend",
+    "productType": "Restaurant reservation platform",
+    "stack": ["React", "TypeScript", "Vite", "CSS"]
+  },
+  "sources": {
+    "tokens": [],
+    "components": [],
+    "assets": [],
+    "instructions": [
+      "DESIGN.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "primary": "#3F5A45",
+      "accent": "#C97A5A",
+      "background": "#F7F3EA",
+      "surface": "#FFFDF8",
+      "text": "#2B2D2A",
+      "border": "#E4DED3"
+    },
+    "typography": { "display": "General Sans", "body": "DM Sans" },
+    "spacing": { "baseUnit": "4px" },
+    "radius": { "input": "8px", "card": "12px", "surface": "16px" },
+    "shadows": { "interactive": "0 8px 24px rgba(43,45,42,0.08)" },
+    "motion": { "default": "180ms ease" },
+    "density": "calm public, compact management"
+  },
+  "components": {
+    "installed": ["Button", "Field", "Badge", "Dialog", "EmptyState"],
+    "preferredPrimitives": ["native inputs", "native dialog"],
+    "patterns": ["labeled date and time controls", "selectable table cards", "compact management rows"]
+  },
+  "constraints": {
+    "must": [
+      "Use deep olive for primary actions and selected states",
+      "Keep reservation times prominent",
+      "Use warm neutral surfaces and a 4px spacing system"
+    ],
+    "avoid": [
+      "Decorative gradients",
+      "Heavy permanent shadows",
+      "Multiple dominant CTAs in one section"
+    ]
+  },
+  "decisions": [
+    {
+      "decision": "Use labeled native date and time inputs in a compact responsive reservation surface, inspired by the 21st shadcn calendar date-and-time pattern and restyled to Reservin tokens.",
+      "source": "DESIGN.md and 21st component research"
+    }
+  ],
+  "evidence": [
+    {
+      "fact": "project.instructions",
+      "source": "DESIGN.md"
+    }
+  ],
+  "generatedAt": "2026-09-28T18:07:59.021Z"
+}
