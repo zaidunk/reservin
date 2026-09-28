@@ -1,6 +1,6 @@
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(9);
+select plan(13);
 
 update public.restaurant_settings
 set reservation_enabled = true, timezone = 'Asia/Jakarta';
@@ -85,6 +85,40 @@ select throws_ok(
       and status = 'cancelled'$$,
   '23514', 'INVALID_STATUS_TRANSITION',
   'terminal reservations cannot return to an active state'
+);
+
+select throws_ok(
+  $$select * from public.create_reservation(
+    '99999999-9999-4999-8999-999999999999', 'Customer', '0800', null, 2,
+    '2026-10-10T18:00:00+07:00', '2026-10-10T20:00:00+07:00', null
+  )$$,
+  'PT404', 'TABLE_NOT_FOUND', 'missing table fails'
+);
+
+select throws_ok(
+  $$select * from public.create_reservation(
+    '20000000-0000-4000-8000-000000000001', 'Customer', '0800', 'bad-email', 2,
+    '2026-10-10T18:00:00+07:00', '2026-10-10T20:00:00+07:00', null
+  )$$,
+  'PT400', 'INVALID_INPUT', 'invalid email fails'
+);
+
+select throws_ok(
+  $$select * from public.create_reservation(
+    '20000000-0000-4000-8000-000000000001', 'Customer', '0800', null, 0,
+    '2026-10-10T18:00:00+07:00', '2026-10-10T20:00:00+07:00', null
+  )$$,
+  'PT400', 'INVALID_INPUT', 'non-positive party size fails'
+);
+
+update public.restaurant_settings set reservation_enabled = false;
+
+select throws_ok(
+  $$select * from public.create_reservation(
+    '20000000-0000-4000-8000-000000000001', 'Customer', '0800', null, 2,
+    '2026-10-10T18:00:00+07:00', '2026-10-10T20:00:00+07:00', null
+  )$$,
+  'PT503', 'RESERVATIONS_DISABLED', 'disabled reservations fail'
 );
 
 select * from finish();

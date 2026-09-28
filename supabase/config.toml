@@ -6,6 +6,10 @@ enabled = true
 [db]
 port = 54322
 
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
 [db.pooler]
 enabled = false
 
