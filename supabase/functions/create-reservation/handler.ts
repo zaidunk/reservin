@@ -56,10 +56,16 @@ const statusByCode: Record<KnownErrorCode, number> = {
 
 const knownCodes = new Set(Object.keys(statusByCode));
 
+const corsHeaders = {
+  "access-control-allow-origin": "*",
+  "access-control-allow-methods": "POST, OPTIONS",
+  "access-control-allow-headers": "authorization, x-client-info, apikey, content-type",
+};
+
 const json = (body: unknown, status: number) =>
   Response.json(body, {
     status,
-    headers: { "cache-control": "no-store" },
+    headers: { ...corsHeaders, "cache-control": "no-store" },
   });
 
 const errorResponse = (
@@ -96,6 +102,10 @@ export const createReservationHandler = ({
 }: HandlerDependencies) => {
   return async (request: Request): Promise<Response> => {
     const requestId = request.headers.get("x-request-id") ?? createRequestId();
+
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: corsHeaders });
+    }
 
     if (request.method !== "POST") {
       logger.info({ request_id: requestId, event: "validation_failure", category: "method" });

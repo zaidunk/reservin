@@ -26,6 +26,32 @@ const reservation: ReservationResult = {
 };
 
 describe("create-reservation handler", () => {
+  it("handles browser CORS preflight requests", async () => {
+    const createReservation = vi.fn();
+    const handler = createReservationHandler({
+      createReservation,
+      logger: { info: vi.fn(), error: vi.fn() },
+      createRequestId: () => "request-cors",
+    });
+
+    const response = await handler(
+      new Request("http://localhost/create-reservation", {
+        method: "OPTIONS",
+        headers: {
+          origin: "https://reservin-pearl.vercel.app",
+          "access-control-request-method": "POST",
+          "access-control-request-headers": "authorization,apikey,content-type",
+        },
+      }),
+    );
+
+    expect(response.status).toBe(204);
+    expect(response.headers.get("access-control-allow-origin")).toBe("*");
+    expect(response.headers.get("access-control-allow-methods")).toContain("POST");
+    expect(response.headers.get("access-control-allow-headers")).toContain("authorization");
+    expect(createReservation).not.toHaveBeenCalled();
+  });
+
   it("creates a confirmed reservation from valid input", async () => {
     const createReservation = vi.fn().mockResolvedValue(reservation);
     const handler = createReservationHandler({
@@ -43,6 +69,7 @@ describe("create-reservation handler", () => {
     );
 
     expect(response.status).toBe(201);
+    expect(response.headers.get("access-control-allow-origin")).toBe("*");
     await expect(response.json()).resolves.toEqual(reservation);
     expect(createReservation).toHaveBeenCalledWith(validBody);
   });
