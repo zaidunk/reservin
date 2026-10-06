@@ -39,7 +39,7 @@ export function TablesPage() {
   return (
     <main className="dashboard-page">
       <header className="dashboard-page__header dashboard-page__header--action">
-        <div><span className="eyebrow">Dining room</span><h1>Tables</h1><p>Keep capacity and availability aligned with the physical restaurant.</p></div>
+        <div><h1>Tables</h1><p>Keep capacity and availability aligned with the physical restaurant.</p></div>
         <Button onClick={() => { saveTable.reset(); setEditingTable("new"); }}><Plus size={17} /> Add table</Button>
       </header>
       {tables.error || saveTable.error || toggleActive.error ? <ErrorNotice message={toAppError(tables.error ?? saveTable.error ?? toggleActive.error).message} /> : null}

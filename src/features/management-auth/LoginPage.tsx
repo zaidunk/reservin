@@ -50,7 +50,6 @@ export function LoginPage() {
       <section className="login-page__aside">
         <Link className="wordmark wordmark--light" to="/">Reservin<span>.</span></Link>
         <div>
-          <span className="eyebrow eyebrow--light">Management</span>
           <h1>A calmer view of every service.</h1>
           <p>See what’s booked, keep tables current, and move each reservation through service.</p>
         </div>
@@ -59,7 +58,6 @@ export function LoginPage() {
       <section className="login-page__form-wrap">
         <form className="login-card" onSubmit={handleSubmit} noValidate>
           <div className="login-card__icon"><LockKeyhole size={22} aria-hidden="true" /></div>
-          <span className="eyebrow">Staff access</span>
           <h2>Welcome back.</h2>
           <p>Sign in with your restaurant management account.</p>
           {submitError || authError ? <ErrorNotice message={submitError ?? authError!} /> : null}

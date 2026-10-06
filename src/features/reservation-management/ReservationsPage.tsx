@@ -41,7 +41,7 @@ export function ReservationsPage() {
   return (
     <main className="dashboard-page">
       <header className="dashboard-page__header">
-        <div><span className="eyebrow">Schedule</span><h1>Reservations</h1><p>Monitor arrivals and keep each booking moving through service.</p></div>
+        <div><h1>Reservations</h1><p>Monitor arrivals and keep each booking moving through service.</p></div>
       </header>
 
       <section className="filter-bar" aria-label="Reservation filters">

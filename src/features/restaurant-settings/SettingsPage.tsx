@@ -99,7 +99,7 @@ export function SettingsPage() {
   return (
     <main className="dashboard-page">
       <header className="dashboard-page__header">
-        <div><span className="eyebrow">Configuration</span><h1>Restaurant settings</h1><p>Update the profile and the hours used for new reservations.</p></div>
+        <div><h1>Restaurant settings</h1><p>Update the profile and the hours used for new reservations.</p></div>
       </header>
       {configuration.error || save.error || validationError ? <ErrorNotice message={validationError ?? toAppError(configuration.error ?? save.error).message} /> : null}
       {save.isSuccess ? <div className="notice notice--success" role="status">Settings saved.</div> : null}

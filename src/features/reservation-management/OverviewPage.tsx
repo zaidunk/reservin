@@ -26,7 +26,7 @@ export function OverviewPage() {
   return (
     <main className="dashboard-page">
       <header className="dashboard-page__header">
-        <div><span className="eyebrow">Service overview</span><h1>Good day.</h1><p>Here’s what the restaurant needs today.</p></div>
+        <div><h1>Good day.</h1><p>Here’s what the restaurant needs today.</p></div>
         <Badge tone="olive">{new Intl.DateTimeFormat("en", { dateStyle: "full", timeZone: appConfig.restaurantTimeZone }).format(new Date())}</Badge>
       </header>
       {reservations.error || tables.error ? <ErrorNotice message={toAppError(reservations.error ?? tables.error).message} /> : null}

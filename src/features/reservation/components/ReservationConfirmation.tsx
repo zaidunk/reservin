@@ -37,7 +37,6 @@ export function ReservationConfirmation({
       <div className="confirmation__icon">
         <Check size={28} aria-hidden="true" />
       </div>
-      <span className="eyebrow">Reservation confirmed</span>
       <h1 id="confirmation-title">Your table is reserved.</h1>
       <p className="confirmation__lead">We’ll have everything ready for {customerName}.</p>
       <dl className="confirmation__details">

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ArrowRight, Leaf } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { Button } from "../../components/ui/Button";
@@ -98,7 +98,6 @@ export function PublicReservationPage() {
     <main className="public-main">
       <section className="reservation-hero">
         <div className="reservation-hero__copy">
-          <span className="eyebrow"><Leaf size={14} /> Reservin Demo Restaurant</span>
           <h1>A table is waiting.</h1>
           <p>
             Choose your time, find the right table, and arrive knowing everything is set.
@@ -114,7 +113,6 @@ export function PublicReservationPage() {
       <section className="booking-surface" id="reserve" aria-labelledby="booking-title">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">Start here</span>
             <h2 id="booking-title">When are you coming?</h2>
           </div>
           {availability.data ? (
@@ -139,7 +137,6 @@ export function PublicReservationPage() {
         <section className="booking-stage" aria-labelledby="tables-title">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">{availability.data.length} options</span>
               <h2 id="tables-title">Choose your table.</h2>
               <p>
                 {search.date} · {search.startTime}–{search.endTime} · {search.partySize} guests
@@ -157,7 +154,6 @@ export function PublicReservationPage() {
           {selectedTable && step === "search" ? (
             <div className="selection-bar">
               <div>
-                <span className="eyebrow">Selected</span>
                 <strong>{selectedTable.name} · {selectedTable.code}</strong>
               </div>
               <Button size="large" onClick={() => setStep("details")}>
@@ -172,7 +168,6 @@ export function PublicReservationPage() {
         <section className="booking-stage details-stage" aria-labelledby="details-title">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">One last step</span>
               <h2 id="details-title">Who is the reservation for?</h2>
               <p>{selectedTable.name} · {search.startTime}–{search.endTime}</p>
             </div>

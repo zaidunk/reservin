@@ -36,7 +36,6 @@ export function TableList({
             >
               <div className="table-card__heading">
                 <div>
-                  <span className="eyebrow">{table.code}</span>
                   <h3>{table.name}</h3>
                 </div>
                 {isSelected ? (
