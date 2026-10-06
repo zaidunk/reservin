@@ -1,0 +1,3 @@
+__pycache__/
+*.py[cod]
+EOF && git rm --cached -r __pycache__ tests/__pycache__
